@@ -1,0 +1,100 @@
+[gd_scene load_steps=9 format=3 uid="uid://w355kt1eo8ef"]
+
+[ext_resource type="Script" path="res://Scripts/level_1.gd" id="1_o5tu3"]
+[ext_resource type="Texture2D" uid="uid://b4debtprkhks5" path="res://Resources/Backgrounds/purple.png" id="1_pskhm"]
+[ext_resource type="PackedScene" uid="uid://cgjyvx3y7jv4d" path="res://Prefabs/maze.tscn" id="2_57f2y"]
+[ext_resource type="PackedScene" uid="uid://d0y2suljeb3jx" path="res://Prefabs/player.tscn" id="2_y67og"]
+[ext_resource type="Script" path="res://Scripts/TimerLabel.gd" id="3_bpuac"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_k8eqn"]
+font_size = 100
+
+[sub_resource type="LabelSettings" id="LabelSettings_4t6d5"]
+font_size = 50
+
+[sub_resource type="LabelSettings" id="LabelSettings_nao4f"]
+font_size = 150
+
+[node name="Level_1" type="Node2D"]
+script = ExtResource("1_o5tu3")
+
+[node name="UI" type="Node" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="UI"]
+layer = -1
+
+[node name="Background" type="TextureRect" parent="UI/CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_pskhm")
+stretch_mode = 1
+
+[node name="StartLabel" type="Label" parent="UI"]
+offset_left = 828.0
+offset_top = 377.0
+offset_right = 1127.0
+offset_bottom = 514.0
+text = "START"
+label_settings = SubResource("LabelSettings_k8eqn")
+
+[node name="EndLabel" type="Label" parent="UI"]
+offset_left = 782.0
+offset_top = 1288.0
+offset_right = 989.0
+offset_bottom = 1425.0
+text = "END"
+label_settings = SubResource("LabelSettings_k8eqn")
+
+[node name="InstructionsLabel1" type="Label" parent="UI"]
+offset_left = 49.0
+offset_top = 299.0
+offset_right = 653.0
+offset_bottom = 898.0
+text = "The game is simple... 
+Complete the maze
+as fast as you can!"
+label_settings = SubResource("LabelSettings_4t6d5")
+
+[node name="InstructionsLabel2" type="Label" parent="UI"]
+offset_left = 1432.0
+offset_top = 588.0
+offset_right = 2036.0
+offset_bottom = 1187.0
+text = "As soon as you start
+moving the timer
+starts counting"
+label_settings = SubResource("LabelSettings_4t6d5")
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="UI"]
+
+[node name="TimerLabel" type="Label" parent="UI/CanvasLayer2"]
+offset_left = 715.0
+offset_right = 1226.0
+offset_bottom = 273.0
+text = "00:00"
+label_settings = SubResource("LabelSettings_nao4f")
+horizontal_alignment = 1
+script = ExtResource("3_bpuac")
+
+[node name="Maze" parent="." instance=ExtResource("2_57f2y")]
+position = Vector2(843, 1381)
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="Polygon2D" type="Polygon2D" parent="Area2D"]
+position = Vector2(631, 1310)
+color = Color(1, 1, 1, 0)
+polygon = PackedVector2Array(-50, -101, 665, -101, 667, 229, -50, 229)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+polygon = PackedVector2Array(-50, -101, 665, -101, 667, 229, -50, 229)
+
+[node name="Player" parent="." instance=ExtResource("2_y67og")]
+z_index = 25
+
+[connection signal="body_entered" from="Maze" to="." method="_on_maze_body_entered"]
+[connection signal="body_entered" from="Area2D" to="UI/CanvasLayer2/TimerLabel" method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="UI/CanvasLayer2/TimerLabel" method="_on_area_2d_body_exited"]
