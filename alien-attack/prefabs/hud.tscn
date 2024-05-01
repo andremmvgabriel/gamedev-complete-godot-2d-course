@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=3 uid="uid://uaucp1f7lejb"]
+
+[ext_resource type="FontFile" uid="uid://cra0ph14qgqqq" path="res://resources/fonts/kenvector_future.ttf" id="1_6tesf"]
+[ext_resource type="Script" path="res://scripts/hud.gd" id="1_lltdd"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_j0jj3"]
+font = ExtResource("1_6tesf")
+font_size = 48
+
+[sub_resource type="LabelSettings" id="LabelSettings_yk5hg"]
+font = ExtResource("1_6tesf")
+font_size = 48
+
+[node name="HUD" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_lltdd")
+
+[node name="Score" type="Label" parent="."]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 25.0
+offset_right = 413.0
+offset_bottom = 79.0
+text = "SCORE: 9999"
+label_settings = SubResource("LabelSettings_j0jj3")
+
+[node name="Lives" type="Label" parent="."]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 100.0
+offset_right = 217.0
+offset_bottom = 154.0
+text = "Lifes:"
+label_settings = SubResource("LabelSettings_yk5hg")
+
+[node name="LivesContainer" type="Node" parent="."]

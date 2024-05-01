@@ -1,0 +1,72 @@
+[gd_scene load_steps=11 format=3 uid="uid://dxmiee10xv7jp"]
+
+[ext_resource type="Script" path="res://scripts/player_ship.gd" id="1_13dcj"]
+[ext_resource type="Texture2D" uid="uid://cplrlihqokita" path="res://resources/sprites/player/spaceShips_009.png" id="2_bs7hi"]
+[ext_resource type="AudioStream" uid="uid://xkcll3qq2j5c" path="res://resources/sfx/sfx_laser.ogg" id="3_eyfgf"]
+[ext_resource type="AudioStream" uid="uid://coi7i5i0jy6op" path="res://resources/sfx/sfx_missile.wav" id="4_16tgq"]
+
+[sub_resource type="Gradient" id="Gradient_7prn4"]
+offsets = PackedFloat32Array(0.010929, 0.519126, 1)
+colors = PackedColorArray(1, 0.847059, 0.0901961, 0.0862745, 1, 0.447059, 0.0431373, 1, 1, 0.0705882, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_k7fxf"]
+gradient = SubResource("Gradient_7prn4")
+
+[sub_resource type="Curve" id="Curve_icngh"]
+_data = [Vector2(0, 0.501859), 0.0, 0.46704, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_f66l1"]
+curve = SubResource("Curve_icngh")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_crwkg"]
+lifetime_randomness = 0.3
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(1, 15, 1)
+spread = 30.0
+initial_velocity_min = -200.0
+initial_velocity_max = -200.0
+gravity = Vector3(0, 0, 0)
+scale_min = 10.0
+scale_max = 10.0
+scale_curve = SubResource("CurveTexture_f66l1")
+color_ramp = SubResource("GradientTexture1D_k7fxf")
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3cjv5"]
+radius = 42.0
+height = 114.0
+
+[node name="PlayerShip" type="CharacterBody2D"]
+collision_mask = 2
+motion_mode = 1
+script = ExtResource("1_13dcj")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(-28, 0)
+amount = 100
+process_material = SubResource("ParticleProcessMaterial_crwkg")
+lifetime = 0.3
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = -1.5708
+texture = ExtResource("2_bs7hi")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-4, 0)
+shape = SubResource("CapsuleShape2D_3cjv5")
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[node name="ShotsContainer" type="Node" parent="."]
+
+[node name="Audio" type="Node" parent="."]
+
+[node name="LaserSFX" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("3_eyfgf")
+volume_db = -10.0
+
+[node name="MissileSFX" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("4_16tgq")
+volume_db = -10.0

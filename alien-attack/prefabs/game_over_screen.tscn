@@ -1,0 +1,94 @@
+[gd_scene load_steps=6 format=3 uid="uid://6awobglxl172"]
+
+[ext_resource type="FontFile" uid="uid://c0fxxe2lak1ap" path="res://resources/fonts/kenvector_future_thin.ttf" id="1_85y25"]
+[ext_resource type="Script" path="res://scripts/game_over_screen.gd" id="1_fuxsp"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6hrvt"]
+bg_color = Color(0.42, 0.056, 0, 0.533333)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+
+[sub_resource type="LabelSettings" id="LabelSettings_4i0va"]
+font = ExtResource("1_85y25")
+font_size = 80
+
+[sub_resource type="LabelSettings" id="LabelSettings_5dgx1"]
+font = ExtResource("1_85y25")
+font_size = 48
+
+[node name="GameOverScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_fuxsp")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -443.0
+offset_top = -257.0
+offset_right = 443.0
+offset_bottom = 257.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_6hrvt")
+
+[node name="GameOver" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -183.5
+offset_top = -164.0
+offset_right = 183.5
+offset_bottom = -76.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "GAME OVER"
+label_settings = SubResource("LabelSettings_4i0va")
+horizontal_alignment = 1
+
+[node name="Score" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -167.0
+offset_top = -50.0
+offset_right = 167.0
+offset_bottom = 17.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "SCORE: 9999"
+label_settings = SubResource("LabelSettings_5dgx1")
+horizontal_alignment = 1
+
+[node name="Retry" type="Button" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -181.0
+offset_top = 63.0
+offset_right = 181.0
+offset_bottom = 156.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_85y25")
+theme_override_font_sizes/font_size = 48
+text = "RETRY"
